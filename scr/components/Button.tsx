@@ -6,27 +6,30 @@ import {useTheme} from "@shopify/restyle";
 
 interface ButtonProps {
     variant: "default" | "primary" | "transparent";
-    label: string;
+    label?: string;
     onPress: ()=> void;
+    children?: React.ReactNode;
 }
 
 const styles = StyleSheet.create({
     container:{
         borderRadius: 25,
         height: 50,
-        width: 245,
+        width: 250,
         alignItems: "center",
         justifyContent: "center"
     }
 })
-const Button = ({variant, label, onPress}: ButtonProps)=>{
+const Button = ({variant, label, onPress, children}: ButtonProps)=>{
     const theme = useTheme<Theme>()
     const backgroundColor = variant === "primary" ? theme.colors.primary: (variant ==="transparent" ? "transparent": theme.colors.grey);
-    const color = variant === "primary" ? theme.colors.white: theme.colors.button;
+    const color = variant === "primary" ? theme.colors.white: theme.colors.secondary;
 
     return(
         <RectButton style={[styles.container, {backgroundColor}]} {...{onPress}}>
+            {children?(children):(
                 <Text variant={"button"} style={{ color }}>{label}</Text>
+            )}
         </RectButton>
     )
 }
