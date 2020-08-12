@@ -1,15 +1,16 @@
-import React, {useState} from "react";
+import React from "react";
 import {Box, Text} from "../../../components";
 import {Feather as Icon} from "@expo/vector-icons";
 import {RectButton} from "react-native-gesture-handler";
 
 interface CheckboxProps {
     label: string;
+    checked: boolean;
+    onChange: ()=>void;
 }
-const Checkbox = ({label}: CheckboxProps)=>{
-    const [checked, setChecked] = useState(false)
+const Checkbox = ({label, onChange, checked}: CheckboxProps)=>{
     return(
-        <RectButton onPress={()=>setChecked(!checked)} style={{justifyContent:"center"}}>
+        <RectButton onPress={()=>onChange()} style={{justifyContent:"center"}}>
             <Box flexDirection={"row"} alignItems={"center"}>
                 <Box height={20}
                      width={20}
