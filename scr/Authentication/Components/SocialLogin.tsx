@@ -2,13 +2,14 @@ import React from "react";
 import Google from "./Google";
 import Facebook from "./Facebook";
 import Apple from "./Apple";
+import {Box, useTheme} from "../../components";
 
-import {Box, theme} from "../../components";
 interface SocialProps {
     children: React.ReactNode;
 }
-const SIZE = theme.borderRadii.l*2;
 const SocialIcon = ({children}: SocialProps) =>{
+    const theme = useTheme()
+    const SIZE = theme.borderRadii.l*2;
     return(
         <Box backgroundColor={"white"} width={SIZE} height={SIZE} borderRadius={"l"} justifyContent={"center"} alignItems={"center"} padding={"s"} marginHorizontal={"m"}>
             {children}

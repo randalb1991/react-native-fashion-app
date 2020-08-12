@@ -1,7 +1,8 @@
 import * as React from "react";
 import {ThemeProvider} from '@shopify/restyle';
 import {assets as authenticationAssets, AuthenticationNavigation} from "./scr/Authentication";
-import {LoadAssets, theme} from "./scr/components";
+import {LoadAssets} from "./scr/components";
+import {theme} from "./scr/components/Theme"
 import {SafeAreaProvider} from "react-native-safe-area-context";
 
 const assets = [... authenticationAssets]

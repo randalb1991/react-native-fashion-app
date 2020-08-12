@@ -1,17 +1,19 @@
 import React, {useRef} from "react";
-import {Dimensions, Image, StyleSheet, View} from "react-native";
+import {Dimensions, Image, StyleSheet,View} from "react-native";
 import {interpolateColor, useScrollHandler} from "react-native-redash"
 import Animated, {interpolate, Extrapolate} from "react-native-reanimated";
-import {theme} from "../../components"
+import {useTheme} from "../../components"
 
 import Slide, { SLIDER_HEIGHT} from "./Slide"
 import Dot from "./Dot"
 import Subslide from './Subslide'
 import {Routes, StackNavigationProps} from "../../components/Navigation";
+import {Theme, makeStyles} from "../../components/Theme";
 
 const { multiply, divide } = Animated
 const {width} = Dimensions.get("window")
-const styles = StyleSheet.create({
+
+const useStyles = makeStyles((theme: Theme)=>({
     container: {
         flex:1,
         backgroundColor: "white"
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-end"
     }
-})
+}))
 
 const slides = [
     {
@@ -95,6 +97,8 @@ const slides = [
 export const assets = slides.map((slide)=>slide.picture.src)
 
 const Onboarding = ({navigation}: StackNavigationProps<Routes,  "Onboarding">) => {
+    const theme = useTheme()
+    const styles = useStyles()
     const scroll = useRef<Animated.ScrollView>(null)
     // TODO: scrollHandler useScrollHandler?
     const { scrollHandler, x} = useScrollHandler()

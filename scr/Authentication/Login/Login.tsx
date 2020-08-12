@@ -62,6 +62,8 @@ const Login = ()=>{
                                     placeholder={"Enter your password"}
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
+                                    error={errors.password}
+                                    touched={touched.password}
                                 />
                             </Box>
                             <Box flexDirection={"row"} justifyContent={"space-between"}>

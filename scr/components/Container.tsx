@@ -1,8 +1,7 @@
 import React from "react";
 import {Image, Dimensions, StyleSheet, StatusBar} from "react-native";
-import theme, {Box} from "./Theme";
+import {Box, useTheme} from "./Theme";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-
 const {width} = Dimensions.get("window")
 const aspectRadio = 750/1125;
 const height = width * aspectRadio;
@@ -15,6 +14,7 @@ interface ContainerProps {
 export const assets = [require("../../assets/patterns/1.jpg")]
 const Container = ({children, footer}: ContainerProps)=>{
     const insets = useSafeAreaInsets()
+    const theme = useTheme()
     return(
         <Box flex={1} backgroundColor={"secondary"}>
             <StatusBar barStyle={"light-content"} />
