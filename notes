@@ -1,0 +1,1 @@
+for icons use feathericons.com and module import {Feather as Icon} from "@expo/vector-icons";
