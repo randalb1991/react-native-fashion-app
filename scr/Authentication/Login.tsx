@@ -1,11 +1,11 @@
-import React from "react";
-import SocialLogin from "../Components/SocialLogin";
-import {Box, Button, Container, Text} from "../../components";
-import TextInput from "../Components/Form/TextInput";
-import Checkbox from "../Components/Form/Checkbox";
-import {Formik} from "formik";
-import {Alert} from "react-native";
+import React,{useRef} from "react";
+import {Box, Button, Container, Text} from "../components";
+import TextInput from "./Components/Form/TextInput";
+import Checkbox from "./Components/Form/Checkbox";
+import {useFormik} from "formik";
+import {Routes, StackNavigationProps} from "../components/Navigation";
 import * as Yup from "yup";
+import Footer from "./Components/Footer";
 const LoginSchema = Yup.object().shape({
     password: Yup.string()
         .min(2, 'Too Short!')
@@ -15,37 +15,23 @@ const LoginSchema = Yup.object().shape({
         .email('Invalid email')
         .required('Required'),
 });
-const Login = ()=>{
-    const footer = (
-        <>
-            <SocialLogin/>
-            <Box alignItems={"center"}>
-                <Button variant={"transparent"} onPress={()=>Alert.alert("SignUp!")} >
-                    <Box flexDirection={"row"}>
-                        <Text variant={"button"} color={"white"}>Don't have an account?</Text>
-                        <Text variant={"button"} color={"primary"} marginLeft={"s"}>Sign Up here</Text>
-                    </Box>
-                </Button>
-            </Box>
-        </>
-    )
+const Login = ({navigation}: StackNavigationProps<Routes, "Login">)=>{
+    const footer = <Footer onPress={()=>navigation.navigate("SignUp")} title={"Don't have an account"} action={"Sign Up"}/>
+    const password = useRef<typeof TextInput>(null)
+    const { handleChange,
+        handleBlur,
+        handleSubmit,
+        values ,
+        errors,
+        touched,
+        setFieldValue} = useFormik({ validationSchema:LoginSchema,
+        initialValues:{ email: '', password: '', remember: true },
+        onSubmit: (values) => console.log(values)})
     return(
         <Container {...{footer}}>
             <Box padding={"xl"}>
                 <Text variant={"title1"} textAlign={"center"} marginBottom={"l"}>Welcome Back</Text>
                 <Text textAlign={"center"} variant={"body"} marginBottom={"l"}>User your credentials below and login to your account</Text>
-                <Formik
-                    validationSchema={LoginSchema}
-                    initialValues={{ email: '', password: '', remember: true }}
-                    onSubmit={values => console.log(values)}
-                >
-                    {({ handleChange,
-                          handleBlur,
-                          handleSubmit,
-                          values ,
-                          errors,
-                          touched,
-                          setFieldValue}) => (
                         <Box>
                             <Box marginBottom={"m"}>
                                 <TextInput
@@ -54,16 +40,30 @@ const Login = ()=>{
                                     onChangeText={handleChange('email')}
                                     onBlur={handleBlur('email')}
                                     error={errors.email}
+                                    autoCompleteType={"email"}
+                                    autoCorrect={false}
+                                    autoCapitalize={"none"}
+                                    returnKeyType={"next"}
+                                    returnKeyLabel={"next"}
+                                    onSubmitEditing={()=>password.current?.focus()}
                                     touched={touched.email}/>
                             </Box>
                             <Box>
                                 <TextInput
+                                    ref={password}
                                     icon={"lock"}
                                     placeholder={"Enter your password"}
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
                                     error={errors.password}
                                     touched={touched.password}
+                                    secureTextEntry
+                                    autoCorrect={false}
+                                    autoCapitalize={"none"}
+                                    autoCompleteType={"password"}
+                                    returnKeyType={"go"}
+                                    returnKeyLabel={"go"}
+                                    onSubmitEditing={()=>handleSubmit()}
                                 />
                             </Box>
                             <Box flexDirection={"row"} justifyContent={"space-between"}>
@@ -82,9 +82,6 @@ const Login = ()=>{
                                     label={"Log into your account"}/>
                             </Box>
                         </Box>
-                    )}
-                </Formik>
-
             </Box>
         </Container>
     )

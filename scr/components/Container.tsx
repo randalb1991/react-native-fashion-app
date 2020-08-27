@@ -2,6 +2,7 @@ import React from "react";
 import {Image, Dimensions, StyleSheet, StatusBar} from "react-native";
 import {Box, useTheme} from "./Theme";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 const {width} = Dimensions.get("window")
 const aspectRadio = 750/1125;
 const height = width * aspectRadio;
@@ -32,7 +33,10 @@ const Container = ({children, footer}: ContainerProps)=>{
                     backgroundColor={"white"}
                     flex={1}
                 >
-                    {children}
+                    <KeyboardAwareScrollView
+                    >
+                        {children}
+                    </KeyboardAwareScrollView>
                 </Box>
             </Box>
             <Box backgroundColor={"secondary"} paddingTop={"m"} style={{paddingBottom:insets.bottom}}>
