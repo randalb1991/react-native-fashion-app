@@ -5,6 +5,7 @@ import Footer from "./Components/Footer";
 import TextInput from "./Components/Form/TextInput";
 import {useFormik} from "formik";
 import {Box, Button, Container, Text} from "../components";
+import {TextInput as RNTextInput} from "react-native"
 
 const SignUpSchema = Yup.object().shape({
     password: Yup.string()
@@ -22,8 +23,8 @@ const SignUpSchema = Yup.object().shape({
 });
 const SignUp = ({navigation}: StackNavigationProps<Routes, "SignUp">)=>{
     const footer = <Footer onPress={()=>navigation.navigate("Login")} title={"Already have an account"} action={"Login Here"}/>
-    const password = useRef<typeof TextInput>(null)
-    const passwordConfirmation = useRef<typeof TextInput>(null)
+    const password = useRef<RNTextInput>(null)
+    const passwordConfirmation = useRef<RNTextInput>(null)
 
     const { handleChange,
         handleBlur,

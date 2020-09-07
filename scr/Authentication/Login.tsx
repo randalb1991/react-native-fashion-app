@@ -4,6 +4,7 @@ import TextInput from "./Components/Form/TextInput";
 import Checkbox from "./Components/Form/Checkbox";
 import {useFormik} from "formik";
 import {Routes, StackNavigationProps} from "../components/Navigation";
+import {TextInput as RNTextInput} from "react-native"
 import * as Yup from "yup";
 import Footer from "./Components/Footer";
 const LoginSchema = Yup.object().shape({
@@ -17,7 +18,7 @@ const LoginSchema = Yup.object().shape({
 });
 const Login = ({navigation}: StackNavigationProps<Routes, "Login">)=>{
     const footer = <Footer onPress={()=>navigation.navigate("SignUp")} title={"Don't have an account"} action={"Sign Up"}/>
-    const password = useRef<typeof TextInput>(null)
+    const password = useRef<RNTextInput>(null)
     const { handleChange,
         handleBlur,
         handleSubmit,
@@ -71,7 +72,7 @@ const Login = ({navigation}: StackNavigationProps<Routes, "Login">)=>{
                                     label={"Remember me"}
                                     checked={values.remember}
                                     onChange={()=>setFieldValue("remember",!values.remember)}/>
-                                <Button variant={"transparent"} onPress={()=>true}>
+                                <Button variant={"transparent"} onPress={()=>navigation.navigate("ForgotPassword")}>
                                     <Text color={"primary"}>Forgot password</Text>
                                 </Button>
                             </Box>
