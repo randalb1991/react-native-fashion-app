@@ -1,25 +1,20 @@
 import * as React from "react";
-import {Routes, StackNavigationProps} from "../components/Navigation";
-import {Feather as Icon} from "@expo/vector-icons";
-import {Box, Button, Container, Text, CloseButton} from "../components";
+import {AuthenticationRoutes, StackNavigationProps} from "../components/Navigation";
+import {Box, Button, Container, Text, RoundedIconButton, RoundedIcon} from "../components";
 
 const SIZE = 80
 
-const PasswordChanged = ({navigation}: StackNavigationProps<Routes, "ForgotPassword">)=>{
+const PasswordChanged = ({navigation}: StackNavigationProps<AuthenticationRoutes, "ForgotPassword">)=>{
     return(
-        <Container footer={
+        <Container pattern={0} footer={
             <Box justifyContent={"center"} flexDirection={"row"}>
-                <CloseButton onPress={()=>navigation.pop()}/>
+                <RoundedIconButton backgroundColor={"white"} color={"secondary"} name={"x"} size={60} onPress={()=>navigation.pop}/>
             </Box>
             }>
-            <Box flex={1} justifyContent={"center"} alignItems={"center"}>
-                <Box  marginBottom={"xl"} backgroundColor={"primaryLight"} justifyContent={"center"} alignItems={"center"} style={{height: SIZE, width: SIZE, borderRadius: SIZE/2}} >
-                    <Text textAlign={"center"} color={"primary"}>
-                        <Icon name={"check"} size={32}/>
-                    </Text>
-                </Box>
-                <Text variant={"title1"} textAlign={"center"} marginBottom={"l"}>Welcome Back</Text>
-                <Text textAlign={"center"} variant={"body"} marginBottom={"l"}>User your credentials below and login to your account</Text>
+            <Box flex={1} justifyContent={"center"} alignItems={"center"} padding={"xl"}>
+                <RoundedIcon name={"check"} size={SIZE} color={"primary"} backgroundColor={"primaryLight"}/>
+                <Text variant={"title1"} textAlign={"center"} marginBottom={"l"} marginVertical={"l"}>Your password was successfully changed</Text>
+                <Text textAlign={"center"} variant={"body"} marginBottom={"l"}>Close this windows and log in again</Text>
                 <Box alignItems={"center"} marginTop={"xl"}>
                     <Button
                         variant={"primary"}

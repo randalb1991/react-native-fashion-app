@@ -1,12 +1,16 @@
 import React,{useRef} from "react";
 import {Box, Button, Container, Text} from "../components";
-import TextInput from "./Components/Form/TextInput";
-import Checkbox from "./Components/Form/Checkbox";
+import TextInput from "../components/Form/TextInput";
+import Checkbox from "../components/Form/Checkbox";
 import {useFormik} from "formik";
-import {Routes, StackNavigationProps} from "../components/Navigation";
-import {TextInput as RNTextInput} from "react-native"
+import {AuthenticationRoutes, HomeRoutes, Routes, StackNavigationProps} from "../components/Navigation";
+import {TextInput as RNTextInput} from "react-native";
+import {CompositeNavigationProp} from "@react-navigation/native";
 import * as Yup from "yup";
 import Footer from "./Components/Footer";
+import {BorderlessButton} from "react-native-gesture-handler";
+import {DrawerNavigationProp} from "@react-navigation/drawer";
+import {StackNavigationProp} from "@react-navigation/stack";
 const LoginSchema = Yup.object().shape({
     password: Yup.string()
         .min(2, 'Too Short!')
@@ -16,7 +20,14 @@ const LoginSchema = Yup.object().shape({
         .email('Invalid email')
         .required('Required'),
 });
-const Login = ({navigation}: StackNavigationProps<Routes, "Login">)=>{
+
+interface LoginProps {
+    navigation: CompositeNavigationProp<
+        StackNavigationProp<AuthenticationRoutes, "Login">,
+        DrawerNavigationProp<HomeRoutes, "OutfitIdeas">
+        >
+}
+const Login = ({navigation}: LoginProps)=>{
     const footer = <Footer onPress={()=>navigation.navigate("SignUp")} title={"Don't have an account"} action={"Sign Up"}/>
     const password = useRef<RNTextInput>(null)
     const { handleChange,
@@ -27,9 +38,10 @@ const Login = ({navigation}: StackNavigationProps<Routes, "Login">)=>{
         touched,
         setFieldValue} = useFormik({ validationSchema:LoginSchema,
         initialValues:{ email: '', password: '', remember: true },
-        onSubmit: (values) => console.log(values)})
+        onSubmit: ()=>navigation.navigate("OutfitIdeas"),
+        })
     return(
-        <Container {...{footer}}>
+        <Container {...{footer}} pattern={0}>
             <Box padding={"xl"}>
                 <Text variant={"title1"} textAlign={"center"} marginBottom={"l"}>Welcome Back</Text>
                 <Text textAlign={"center"} variant={"body"} marginBottom={"l"}>User your credentials below and login to your account</Text>
@@ -67,14 +79,15 @@ const Login = ({navigation}: StackNavigationProps<Routes, "Login">)=>{
                                     onSubmitEditing={()=>handleSubmit()}
                                 />
                             </Box>
-                            <Box flexDirection={"row"} justifyContent={"space-between"}>
+                            <Box flexDirection={"row"} justifyContent={"space-between"} marginVertical={"s"} alignItems={"center"}>
                                 <Checkbox
                                     label={"Remember me"}
                                     checked={values.remember}
                                     onChange={()=>setFieldValue("remember",!values.remember)}/>
-                                <Button variant={"transparent"} onPress={()=>navigation.navigate("ForgotPassword")}>
-                                    <Text color={"primary"}>Forgot password</Text>
-                                </Button>
+                                 <BorderlessButton onPress={()=>navigation.navigate("ForgotPassword")}>
+                                     <Text variant={"button"} color={"primary"}>Forgot password</Text>
+                                 </BorderlessButton>
+
                             </Box>
                             <Box alignItems={"center"} marginTop={"xl"}>
                                 <Button

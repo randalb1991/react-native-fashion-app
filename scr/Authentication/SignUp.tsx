@@ -1,8 +1,8 @@
 import React, {useRef} from "react";
 import * as Yup from "yup";
-import {Routes, StackNavigationProps} from "../components/Navigation";
+import {AuthenticationRoutes, StackNavigationProps} from "../components/Navigation";
 import Footer from "./Components/Footer";
-import TextInput from "./Components/Form/TextInput";
+import TextInput from "../components/Form/TextInput";
 import {useFormik} from "formik";
 import {Box, Button, Container, Text} from "../components";
 import {TextInput as RNTextInput} from "react-native"
@@ -21,7 +21,7 @@ const SignUpSchema = Yup.object().shape({
         .email('Invalid email')
         .required('Required'),
 });
-const SignUp = ({navigation}: StackNavigationProps<Routes, "SignUp">)=>{
+const SignUp = ({navigation}: StackNavigationProps<AuthenticationRoutes, "SignUp">)=>{
     const footer = <Footer onPress={()=>navigation.navigate("Login")} title={"Already have an account"} action={"Login Here"}/>
     const password = useRef<RNTextInput>(null)
     const passwordConfirmation = useRef<RNTextInput>(null)
@@ -35,7 +35,7 @@ const SignUp = ({navigation}: StackNavigationProps<Routes, "SignUp">)=>{
         initialValues:{ email: '', password: '', passwordConfirmation: '' },
         onSubmit: (values) => console.log(values)})
     return(
-        <Container {...{footer}}>
+        <Container pattern={1} {...{footer}} >
             <Box padding={"xl"}>
                 <Text variant={"title1"} textAlign={"center"} marginBottom={"l"}>Create Account</Text>
                 <Text textAlign={"center"} variant={"body"} marginBottom={"l"}>Let's us know what is your name, email, and your password</Text>

@@ -1,11 +1,11 @@
 import React from "react";
 import Footer from "./Components/Footer";
-import {Routes, StackNavigationProps} from "../components/Navigation";
+import {AuthenticationRoutes, StackNavigationProps} from "../components/Navigation";
 import {Linking} from "react-native";
 import {Box, Button, Container, Text} from "../components";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import TextInput from "./Components/Form/TextInput";
+import TextInput from "../components/Form/TextInput";
 
 
 const ForgotPasswordSchema = Yup.object().shape({
@@ -14,7 +14,7 @@ const ForgotPasswordSchema = Yup.object().shape({
         .required('Required'),
 });
 
-const ForgotPassword = ({navigation}: StackNavigationProps<Routes, "ForgotPassword">)=>{
+const ForgotPassword = ({navigation}: StackNavigationProps<AuthenticationRoutes, "ForgotPassword">)=>{
 
     const footer = (
         <Footer
@@ -29,10 +29,10 @@ const ForgotPassword = ({navigation}: StackNavigationProps<Routes, "ForgotPasswo
         touched,
         } = useFormik({ validationSchema:ForgotPasswordSchema,
         initialValues:{ email: ''},
-        onSubmit: (values) => navigation.navigate("PasswordChanged")})
+        onSubmit: () => navigation.navigate("PasswordChanged")})
 
     return(
-        <Container {...{footer}}>
+        <Container pattern={2} {...{footer}}>
             <Box padding={"xl"} justifyContent={"flex-start"} flex={1}>
                 <Text variant={"title1"} textAlign={"center"} marginBottom={"l"}>Forgot password?</Text>
                 <Text textAlign={"center"} variant={"body"} marginBottom={"l"}>Enter the email address associated with your account</Text>

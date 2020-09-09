@@ -11,24 +11,28 @@ const height = width * aspectRadio;
 interface ContainerProps {
     children: React.ReactNode;
     footer: React.ReactNode
-
+    pattern : 0 | 1 | 2
 }
 
-export const assets = [require("../../assets/patterns/1.jpg")]
-const Container = ({children, footer}: ContainerProps)=>{
+export const assets = [
+    require("../../assets/patterns/1.jpg"),
+    require("../../assets/patterns/2.jpg"),
+    require("../../assets/patterns/3.jpg")] as const
+const Container = ({children, footer, pattern}: ContainerProps)=>{
     const insets = useSafeAreaInsets()
     const theme = useTheme()
+    const asset = assets[pattern]
     return(
         <KeyboardAwareScrollView scrollEnabled={false}>
             <Box height={wHeight + (Platform.OS ==="android" ? Constants.statusBarHeight : 0)} backgroundColor={"secondary"}>
                 <Box backgroundColor={"white"}>
                     <Box  borderBottomLeftRadius={"xl"} overflow={"hidden"} height={height * 0.61}>
-                        <Image source={assets[0]} style={{width,height, borderBottomLeftRadius: theme.borderRadii.xl}}/>
+                        <Image source={asset} style={{width,height, borderBottomLeftRadius: theme.borderRadii.xl}}/>
                     </Box>
                 </Box>
 
                 <Box flex={1} overflow={"hidden"}>
-                    <Image source={assets[0]} style={{...StyleSheet.absoluteFillObject, width,height, top: -height * 0.61}}/>
+                    <Image source={asset} style={{...StyleSheet.absoluteFillObject, width,height, top: -height * 0.61}}/>
                     <Box
                         borderRadius={"xl"}
                         borderTopLeftRadius={0}
