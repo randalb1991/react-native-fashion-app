@@ -7,6 +7,6 @@ const Drawer = createDrawerNavigator<HomeRoutes>();
 
 export const HomeNavigator = () =>(
     <Drawer.Navigator>
-        <Drawer.Screen name={"OutfitIdeas"} component={OutfitIdeas} />
+        <Drawer.Screen name="OutfitIdeas" component={OutfitIdeas} />
     </Drawer.Navigator>
 )
