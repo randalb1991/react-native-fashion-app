@@ -7,7 +7,7 @@ import {useTheme} from "../../components"
 import Slide, { SLIDER_HEIGHT} from "./Slide"
 import Dot from "./Dot"
 import Subslide from './Subslide'
-import {Routes, StackNavigationProps} from "../../components/Navigation";
+import {AuthNavigationProps} from "../../components/Navigation";
 import {Theme, makeStyles} from "../../components/Theme";
 
 const { multiply, divide } = Animated
@@ -96,7 +96,7 @@ const slides = [
 ]
 export const assets = slides.map((slide)=>slide.picture.src)
 
-const Onboarding = ({navigation}: StackNavigationProps<Routes,  "Onboarding">) => {
+const Onboarding = ({navigation}: AuthNavigationProps<"Onboarding">) => {
     const theme = useTheme()
     const styles = useStyles()
     const scroll = useRef<Animated.ScrollView>(null)

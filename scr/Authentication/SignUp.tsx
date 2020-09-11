@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import * as Yup from "yup";
-import {AuthenticationRoutes, StackNavigationProps} from "../components/Navigation";
+import {AuthNavigationProps} from "../components/Navigation";
 import Footer from "./Components/Footer";
 import TextInput from "../components/Form/TextInput";
 import {useFormik} from "formik";
@@ -21,7 +21,7 @@ const SignUpSchema = Yup.object().shape({
         .email('Invalid email')
         .required('Required'),
 });
-const SignUp = ({navigation}: StackNavigationProps<AuthenticationRoutes, "SignUp">)=>{
+const SignUp = ({navigation}: AuthNavigationProps<"SignUp">)=>{
     const footer = <Footer onPress={()=>navigation.navigate("Login")} title={"Already have an account"} action={"Login Here"}/>
     const password = useRef<RNTextInput>(null)
     const passwordConfirmation = useRef<RNTextInput>(null)
